@@ -191,7 +191,15 @@ class LList(object):
             :return (True, val) if val is stored at index idx and idx is valid
             :return (False, None) if the idx is not valid for the list
         """
-        pass
+        self._temp = self._head
+        self._counter = 0
+        while self._temp is not None:
+            if self._counter == idx:
+                return True, self._temp.data
+            else:
+                self._temp = self._temp.next
+                self._counter += 1
+        return False, None
 
     def set_data(self, idx, val):
         """
@@ -205,5 +213,9 @@ class LList(object):
         Return:
             :return True if the index was valid, False otherwise
         """
-        pass
+        if self.retrieve_data(idx)[0]:
+            self._temp.data = val
+            return True
+        else:
+            return False
 
