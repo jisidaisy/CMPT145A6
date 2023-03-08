@@ -120,7 +120,15 @@ class LList(object):
             :return True, idx if the val appears in self
             :return False, None if the vale does not appear in self
         """
-        pass
+        self._temp = self._head
+        self._counter = 0
+        while self._temp is not None:
+            if self._temp.data == val:
+                return True, self._counter
+            else:
+                self._temp = self._temp.next
+                self._counter += 1
+        return False, None
 
     def remove_from_front(self):
         """
@@ -133,7 +141,16 @@ class LList(object):
             :return The pair (True, value) if self is not empty
             :return The pair (False, None) if self is empty
         """
-        pass
+        if self.is_empty():
+            return False, None
+        else:
+            self._size -= 1
+            self._temp = self._head
+            if self._size == 0:
+                self._tail = self._head = None
+            else:
+                self._head = self._head.next
+            return True, self._temp.data
 
     def remove_from_back(self):
         """
@@ -146,7 +163,21 @@ class LList(object):
             :return The pair True, value if self is not empty
             :return The pair False, None if self is empty
         """
-        pass
+        if self.is_empty():
+            return False, None
+        else:
+            self._size -= 1
+            self._temp = self._head
+            if self._size == 0:
+                self._head = self._tail = None
+            else:
+                self._prev = self._head
+                while self._temp != self._tail:
+                    self._prev = self._temp
+                    self._temp = self._temp.next
+                self._tail = self._prev
+                self._tail.next = None
+            return True, self._temp.data
 
     def retrieve_data(self, idx):
         """
